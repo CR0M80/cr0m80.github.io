@@ -36,8 +36,9 @@ jobs:
           # (See: https://github.com/cotes2020/chirpy-starter/tree/main/assets)
 
       - name: Setup Pages
-        id: pages
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@v5  # Version actuelle
+        env:
+          FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true  # ← Force Node.js 24
 
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
