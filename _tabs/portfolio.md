@@ -790,6 +790,26 @@ function loadWriteup(ctfKey, idx) {
 
   navigate('page-writeup', { ctfName: ctf.name, challengeName: ch.name });
 }
+<script>
+function navigate(pageId, extraInfo = null) {
+  // Cacher toutes les pages
+  document.querySelectorAll('.pf-page').forEach(page => {
+    page.classList.remove('active');
+  });
+
+  // Afficher la page demandée
+  const target = document.getElementById(pageId);
+  if (target) target.classList.add('active');
+
+  // Mettre à jour le breadcrumb
+  updateBreadcrumb(pageId, extraInfo);
+
+  // Si page CTF, activer mode CTF dans sidebar
+  patchSidebar(new Set(['page-ctfs', 'page-ctf-detail', 'page-writeup']).has(pageId));
+
+  // Cacher panneau CTF inline si on quitte page-ctf-detail
+  if (pageId !== 'page-ctf-detail') hideCTFInfoPanel();
+}
 </script>
 
 
@@ -873,6 +893,14 @@ function loadWriteup(ctfKey, idx) {
 .ctf-info-card h3 { color: #00d4e8; font-size:1rem; margin:0 0 .75rem; display:flex; align-items:center; gap:.5rem; }
 .ctf-info-card p  { font-size:.85rem; margin:.4rem 0; color:var(--text-muted-color,#8b949e); }
 .ctf-info-card hr { border-color:rgba(232, 182, 0, 0.2); margin:.75rem 0; }
+
+.pf-page {
+  display: none;
+}
+
+.pf-page.active {
+  display: block;
+}
 
 /* ═══════════════════════════════════════════════════════════════════════
    SKILLS
