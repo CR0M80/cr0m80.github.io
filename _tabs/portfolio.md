@@ -1032,4 +1032,9 @@ function loadWriteup(ctfKey, idx) {
 .sb-typewriter { font-family:'Fira Code','Courier New',monospace !important; color:#00d4e8 !important; letter-spacing:.06em; }
 .sb-desc-ctf   { font-family:'Fira Code','Courier New',monospace !important; color:#39a7d3 !important; font-size:.80rem !important; letter-spacing:.02em; }
 .sb-avatar-ctf { transition:opacity .35s, box-shadow .4s !important; box-shadow:0 0 0 2px #00d4e866, 0 0 16px #00d4e833 !important; }
+
+// Rendre les fonctions accessibles globalement
+window.navigate = navigate;
+window.loadCTF = loadCTF;
+window.loadWriteup = loadWriteup;
 </style>
