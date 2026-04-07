@@ -1,0 +1,485 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   BREADCRUMB
+═══════════════════════════════════════════════════════════════════════ */
+function updateBreadcrumb(pageId, extraInfo = null) {
+  const level2 = document.getElementById('breadcrumb-level2');
+  const level3 = document.getElementById('breadcrumb-level3');
+  const level4 = document.getElementById('breadcrumb-level4');
+  const sep2   = document.getElementById('breadcrumb-sep2');
+  const sep3   = document.getElementById('breadcrumb-sep3');
+
+  const pageNames = {
+    'page-home':         'Home',
+    'page-skills':       'Skills',
+    'page-projects':     'Projects',
+    'page-certificates': 'Certificates',
+    'page-ctfs':         'CTFs by Me',
+    'page-ctf-detail':   'Challenges',
+    'page-writeup':      'Writeup',
+    'page-experience':   'Experience'
+  };
+
+  if (pageId === 'page-home') {
+    level2.style.display = 'inline';
+    level3.style.display = 'none';
+    level4.style.display = 'none';
+    sep2.style.display   = 'none';
+    sep3.style.display   = 'none';
+    level2.textContent   = 'My Portfolio';
+    return;
+  }
+
+  level2.style.display = 'inline';
+  level2.textContent   = 'My Portfolio';
+  sep2.style.display   = 'inline';
+
+  if ((pageId === 'page-ctf-detail' || pageId === 'page-writeup') && extraInfo) {
+    level3.style.display = 'inline';
+    level3.textContent   = extraInfo.ctfName || 'CTF';
+    sep3.style.display   = 'inline';
+    level4.style.display = 'inline';
+    level4.textContent   = extraInfo.challengeName || pageNames[pageId];
+  } else {
+    level3.style.display = 'inline';
+    level3.textContent   = pageNames[pageId] || pageId.replace('page-', '');
+    level4.style.display = 'none';
+    sep3.style.display   = 'none';
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   CTF INLINE INFO PANEL
+   — Affiché en haut de page-ctf-detail, au-dessus des challenges
+   — Caché automatiquement au retour vers page-ctfs ou page-writeup
+═══════════════════════════════════════════════════════════════════════ */
+function showCTFInfoPanel(ctfKey) {
+  const ctf   = CTF_DATA[ctfKey];
+  const panel = document.getElementById('ctf-inline-info');
+  if (!ctf || !panel) return;
+  panel.innerHTML = `
+    <div class="ctf-info-card">
+      <h3><i class="fas fa-flag"></i> ${ctf.name}</h3>
+      <p><strong>Date:</strong> ${ctf.year}</p>
+      <p><strong>Flag Format:</strong>  ${ctf.flag_format || 'CTF{...}'}</p>
+      <p><strong>Organized by:</strong> ${ctf.author || 'GCDSTE Club'}</p>
+      <p><strong>Description:</strong>  ${ctf.description || 'No description available.'}</p>
+      <hr>
+      <p><strong>Challenges:</strong> ${ctf.challenges ? ctf.challenges.length : 0}</p>
+    </div>
+  `;
+  panel.style.display = 'block';
+}
+
+function hideCTFInfoPanel() {
+  const panel = document.getElementById('ctf-inline-info');
+  if (panel) {
+    panel.style.display = 'none';
+    panel.innerHTML     = '';
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   SIDEBAR CONFIG
+═══════════════════════════════════════════════════════════════════════ */
+const SIDEBAR_CONFIG = {
+  NORMAL_NAME:   "AMAR SAAD",
+  HACKER_NAME:   "CR0M80",
+  NORMAL_DESC:   "Computer Science Student",
+  HACKER_DESC:   "Captain of team <a href=\"https://st4f1t.ma\" target=\"_blank\" class=\"sb-desc-ctf\">ST4F1T</a> <br><br>· DFIR Player <br>· CTF Author <br><br>· I always say :<br><center>Rask mrbe3 asat</center>",
+  NORMAL_AVATAR: "",
+  HACKER_AVATAR: "../assets/img/CR0M80.png"
+};
+
+const CTF_PAGES = new Set(['page-ctfs', 'page-ctf-detail', 'page-writeup']);
+
+function getSidebarEls() {
+  const find = (...sel) => { for (const s of sel) { const e = document.querySelector(s); if (e) return e; } return null; };
+  return {
+    name:   find('#sidebar .site-title',    '.sidebar .site-title',    '#sidebar p.site-title'),
+    desc:   find('#sidebar .site-subtitle', '.sidebar .site-subtitle', '#sidebar p.site-subtitle'),
+    avatar: find('#sidebar img.rounded-circle', '#sidebar img.avatar', '#sidebar .avatar img', '#sidebar img', '.sidebar img')
+  };
+}
+
+let _orig      = { name: null, desc: null, avatar: null };
+let _saved     = false;
+let _ctfMode   = false;
+let _typeTimer = null;
+let _cursorEl  = null;
+
+function typewriter(el, text, speed = 75) {
+  if (_typeTimer) { clearInterval(_typeTimer); _typeTimer = null; }
+  if (_cursorEl && _cursorEl.parentNode) _cursorEl.parentNode.removeChild(_cursorEl);
+  _cursorEl = document.createElement('span');
+  _cursorEl.className   = 'sb-cursor';
+  _cursorEl.textContent = '█';
+  el.textContent = '';
+  el.appendChild(_cursorEl);
+  let i = 0;
+  _typeTimer = setInterval(() => {
+    if (i < text.length) { _cursorEl.before(document.createTextNode(text[i++])); }
+    else { clearInterval(_typeTimer); _typeTimer = null; }
+  }, speed);
+}
+
+function patchSidebar(goCtf) {
+  if (goCtf === _ctfMode) return;
+  _ctfMode = goCtf;
+  const els = getSidebarEls();
+  if (!_saved && (els.name || els.avatar)) {
+    _orig.name   = els.name   ? els.name.textContent.trim()    : null;
+    _orig.desc   = els.desc   ? els.desc.textContent.trim()    : null;
+    _orig.avatar = els.avatar ? els.avatar.getAttribute('src') : null;
+    _saved = true;
+  }
+  if (goCtf) {
+    if (els.name)   { els.name.classList.add('sb-typewriter'); typewriter(els.name, SIDEBAR_CONFIG.HACKER_NAME, 80); }
+    if (els.desc)   { els.desc.classList.add('sb-desc-ctf');   els.desc.innerHTML = SIDEBAR_CONFIG.HACKER_DESC; }
+    if (els.avatar) {
+      els.avatar.classList.add('sb-avatar-ctf');
+      if (SIDEBAR_CONFIG.HACKER_AVATAR) {
+        els.avatar.style.opacity = '0';
+        setTimeout(() => { els.avatar.setAttribute('src', SIDEBAR_CONFIG.HACKER_AVATAR); els.avatar.style.opacity = '1'; }, 320);
+      }
+    }
+  } else {
+    if (_typeTimer) { clearInterval(_typeTimer); _typeTimer = null; }
+    if (_cursorEl && _cursorEl.parentNode) { _cursorEl.parentNode.removeChild(_cursorEl); _cursorEl = null; }
+    if (els.name   && _orig.name   !== null) { els.name.classList.remove('sb-typewriter'); els.name.textContent = _orig.name; }
+    if (els.desc   && _orig.desc   !== null) { els.desc.classList.remove('sb-desc-ctf');   els.desc.textContent = _orig.desc; }
+    if (els.avatar) {
+      els.avatar.classList.remove('sb-avatar-ctf');
+      if (SIDEBAR_CONFIG.HACKER_AVATAR && _orig.avatar) {
+        els.avatar.style.opacity = '0';
+        setTimeout(() => { els.avatar.setAttribute('src', _orig.avatar); els.avatar.style.opacity = '1'; }, 320);
+      }
+    }
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   CTF DATA
+═══════════════════════════════════════════════════════════════════════ */
+const CTF_DATA = {
+
+// ══════════════════════════════════════ CTF Template ═══════════════════════════════════════════
+  ctf1: {
+    name:        "GCDxJIT",
+    year:        "07-08/02/2026",
+    flag_format: "GCDxJIT{...}",
+    author:      "GCDSTE Club en collaboration with Job In Tech",
+    description: "A beginner-friendly CTF.",
+    challenges: [
+
+// ═══════════════════════════════ CHALLENGE Template ══════════════════════════════════      
+      {
+        name:            "important is hidden",
+        category:        "Dfir",
+        difficulty:      "Easy",
+        description:     "Steganography Challenge",
+        writeup_content: `
+          <h3>The Challenge :</h3>
+          <p>Maybe something important hidden !!</p>
+          <a href="https://mega.nz/folder/uNtRGAKK#iz6nNHc6kCfbdSsGJyq_Jw" target="_blank" class="provided-files">Provided Files</a>
+          <h3>Solve :</h3>
+          <p>— An image of a famous meme was given.</p>
+          <center><img src="../assets/img/gcdxjit/gcdxjit1.png" style="height:300px;"></center>
+          <p>So what to do next ?</p>
+          <p>— First you must think of many types of challenges and yes it is a basic one which a text file named important.txt was hidden in this image using LSB concept.</p>
+          <center><img src="../assets/img/gcdxjit/gcdxjit2.png" style="width:600px;"></center>
+          <p>It requires a passphrase to see any info about hidden data in this image file or to extract it.</p>
+          <p>— So as we know, we can find some important hints in the EXIF data of the image. Let's check :</p>
+          <center><img src="../assets/img/gcdxjit/gcdxjit3.png"></center>
+          <p>— From the image above we can understand that CR0M80 said <strong>raskmrbe3asat</strong> but in a context that could help!! so let's use this phrase as passphrase.</p>
+          <center><img src="../assets/img/gcdxjit/gcdxjit4.png" style="width:500px;"></center>
+          <p>And boom here is your flag :</p>
+          <center><img src="../assets/img/gcdxjit/gcdxjit5.png" style="width:400px;"></center>
+          <h3>Flag</h3>
+          <pre><code><b>GCDxJIT{h4k_flag_akhouy_zin}</b></code></pre>
+        `
+      },
+// ════════════════════════════════════════════════════════════════════════════════════      
+
+      {
+        name:            "Tsjil Dokhol",
+        category:        "Dfir",
+        difficulty:      "Easy",
+        description:     "Steganography Challenge",
+        writeup_content: `
+          <h3>The Challenge :</h3>
+          <p>Crombo nsa 3la lmot de passe dyl lcompte dyalo f la plateforme dyal ljami3a dyalo, ashno dar fnadarek ? bash n3rfo ghadi n analyziw pcap dyl server dyal ljami3a.</p>
+          <p><strong>Translated to english :</strong></p>
+          <p>Crombo forgot his own password so he cannot access his university account, so what do you think he did ?</p>
+          <p><strong>Flag format : GCDxJIT{Crombo\`s password}</strong></p>
+          <a href="https://mega.nz/folder/6EsABC6S#vtHUETJBg97hUGL9vhi60w" target="_blank" class="provided-files">Provided Files</a>
+          <h3>Solve :</h3>
+          <p>if we looked in the file given we will find some TCP, ICMP and HTTP packets.
+          <br><br>The TCP packets are normal nothing interesting, also the ICMP is just for the noise so we cannot focus on the HTTP ones.
+          <br><br>— So the important packets are those of HTTP, and it is normal because Crombo consulted teh university webpage and trying to login.
+          <br><br>— Now all we have to do is following the HTTP streams and found the right password.</p>
+          <center><img src="../assets/img/gcdxjit/gcdxjit7.png" style="height:350px;"></center>
+          <center><b>Follow the HTTP streams</b></center>
+          <center><img src="../assets/img/gcdxjit/gcdxjit8.png" style="width:750px;"></center>
+          <center><b>Check the username and the password of each packet</b></center>
+          <p>for each stream you will find the username of Crombo and the password but how to know if the password is correct or not ?</p>
+          <center><img src="../assets/img/gcdxjit/gcdxjit9.png" style="width:600px;"></center>
+          <center><b>Correct password found</b></center>
+          <p>So when the correct password is found this : LOGIN SUCCESSFUL !!! appears on the page .
+          <br>— Then the flag is : <b>GCDxJIT{MZ28QH6x9R4T7KCF3yWd6x9R4}</b></p>
+          <h3>Flag</h3>
+          <pre><code><b>GCDxJIT{MZ28QH6x9R4T7KCF3yWd6x9R4}</b></code></pre>
+        `
+      },
+      {
+        name:            "SO9 mashi SOC",
+        category:        "Dfir",
+        difficulty:      "Easy",
+        description:     "Exploring logs.",
+        writeup_content: `
+          <h3>The Challenge :</h3>
+          <p>had lyamat sm3na bli shi m3lomat siriya dyal wahed charika tpartageaw, waqila l pc dyal wahed l3amil tkhtareq 3an bo3d.</p>
+          <p><em>Translated :</em> These days we heard that some secret infos of an entreprise was leaked, maybe the pc of an agent there was hacked remotly.</p>
+          <a href="https://mega.nz/folder/edF02T7R#ZbbKdcv-Cd0KtZ7UZkLNwg" target="_blank" class="provided-files">Provided Files</a>
+          <h3>Solve :</h3>
+          <p>After checking the file provided we can assume that it was a ssh brute force, then we see that some files were copied.</p>
+          <p>— In the situation given, we have this phrase : <strong>"These days we heard that some secret infos of an entreprise was leaked"</strong> which means that a secret file was copied.
+          But the names of the files copied are in Hex format so of course we don't have to check one by one but we must pay attention to the hint given in the situation.</p>
+          <p>— So the most secretly file extension in these logs files is <strong>.vault</strong></p>
+          <p>The name of the file is : <strong>666c61673d7b6c6f67735f6e76725f6c69657d.vault</strong></p>
+          <p>— Converting this name from Hex :</p>
+          <center><img src="../assets/img/gcdxjit/gcdxjit6.png"></center>
+          <h3>Flag</h3>
+          <pre><code><b>GCDxJIT{logs_nvr_lie}</b></code></pre>
+        `
+      },
+      {
+        name:            "Ta3bi2a mhkoka",
+        category:        "Dfir",
+        difficulty:      "Medium",
+        description:     "Steganography Challenge",
+        writeup_content: `
+          <h3>The Challenge :</h3>
+          <p>Li dkhelha lwl bsehto.</p>
+          <a href="https://mega.nz/folder/TRsg3YQC#nzLANhVKcsORuKntE29ctQ" target="_blank" class="provided-files">Provided Files</a>
+          <h3>Solve :</h3>
+          <p>It is a steganography challenge and CR0M80 bet that you never seen one like this.</p>
+          <center><img src="../assets/img/gcdxjit/gcdxjit10.png" style="height:350px;"></center>
+          <p>— What to do first ?
+          <br><br>As we see there is no hint, no instructions and no guide to go with. But we know that the 6 numbers missing start with <strong>2* 9* **</strong>
+          <br><br>— As CR0M80 says always : run this three commands before starting your challenge <strong><pre><code>$file <br>$strings <br>$exiftool</code></pre></strong>
+          <br>— the exiftool command gives us this :
+          <center><img src="../assets/img/gcdxjit/gcdxjit11.png"></center>
+          <p>As wee see the comment says : "Where it ends ? "
+          <br><br>— wee can use this as a hint and we must think about the end of this image in binary or hexadecimal.
+          <br><br>— So the EOF is an important concept in steganography and dfir challenges. If you want to know more go search it !!
+          <br><br>— As we know the end of a jpg image is : FF d9 so after that what would be written is not readable by editors.
+          <br><br>— Let\`s see in cybserchef if we will find something interesting !!
+          <center><img src="../assets/img/gcdxjit/gcdxjit12.png"></center>
+          <p>As we can see in the image above there is 6 numbers added after the EOF of this image, and they start with the number 2 then the unknown number then 9. So it is really the nubers missing !!
+          <br><b>FLAG : GCDxJIT{43242125991062}</b></p>
+          <h3>Flag</h3>
+          <pre><code><b>GCDxJIT{43242125991062}</b></code></pre>
+        `
+      },
+      {
+        name:            "Ta3arof",
+        category:        "Dfir",
+        difficulty:      "Medium",
+        description:     "Steganography Challenge",
+        writeup_content: `
+          <h3>The Challenge :</h3>
+          <p>mskin kan 3ziz 3lih ytsrkel f tinder, wlkn li 3ta lah 3tah !!<br>
+          <br><strong>Translated to english :</strong>
+          <br><br>He likes to meet new friends in tinder !!</p>
+          <br>— The flag is divided into two parts !!
+          <br><a href="https://mega.nz/folder/GAkQUSxR#y8tN8b4EW53xJXt3w4hvDA" target="_blank" class="provided-files">Provided Files</a>
+          <h3>Solve :</h3>
+          <p>The pcap file contains a lot of ICMP and DNS packet, but the ICMP packets are just for noise so its a basic challenge of DNS Exfiltration.
+          <br><br>— As an info this is a fragmented flag dns exfiltration challenge !
+          <br><br>First we see that the subdomains of tinder.com are on Hex, so for that we must extract all the subdomains in a txt file using Tshark :
+          <center><img src="../assets/img/gcdxjit/gcdxjit13.png"></center>
+          <br><br>Then we must convert the subdomains extracted from Hex, for that you must use a tool or a script python or bash to do it :
+          <center><img src="../assets/img/gcdxjit/gcdxjit14.png"></center>
+          <center>Line 272</center>
+          <center><img src="../assets/img/gcdxjit/gcdxjit15.png"></center>
+          <center>Line 841</center>
+          <br><b>FLAG : GCDxJIT{tbarklah_3lik_abatal(a)}</b></p>
+          <h3>Flag</h3>
+          <pre><code><b>GCDxJIT{tbarklah_3lik_abatal(a)}</b></code></pre>
+        `
+      }
+    ]
+  },
+// ═══════════════════════════════════════════════════════════════════════
+
+
+  ctf2: {
+    name:        "GCDxN7",
+    year:        "13-14/12/2025",
+    flag_format: "GCDxN7{...}",
+    author:      "GCDSTE Club en collaboration with N7SEC",
+    description: "ENSA Marrakech with ENSET Mohammadia students",
+    challenges:  [
+      
+      {
+        name:            "Mzika",
+        category:        "Dfir",
+        difficulty:      "Easy",
+        description:     "Steganography Challenge",        
+        writeup_content: `
+          <h3>The Challenge :</h3>
+          <a href="https://mega.nz/file/zVEmRY5T#tAh1TAVNQBokshtNB43rWr6ncn0jiyrEcb_5uVs9ypI" target="_blank" class="provided-files">Provided Files</a>
+          <h3>Solve :</h3>
+          <p>The file provided is an audio wav, so most of challenges of steganography that provide an audio file (wav) hide the flag in the “spectrogramm”.<br><br>We’ll simply use <strong>Audacity</strong> to see the spectrogramm :</p>
+          <center><img src="../assets/img/gcdxn7/gcdxn71.png"></center>
+          <p>The audio seems regular but there is some noice there !</p>
+          <center><img src="../assets/img/gcdxn7/gcdxn72.png"></center>
+          <p>After zoom in we see the entire flag :</p>
+          <center><img src="../assets/img/gcdxn7/gcdxn73.png"></center>
+          <h3>Flag</h3>
+          <pre><code><b>GCDxN7{ur_fl4g_1s_h3r3}</b></code></pre>
+        `
+      },
+      {
+        name:            "Shedni Radar",
+        category:        "Dfir",
+        difficulty:      "Medium",
+        description:     "Manipulating some image chunks.",        
+        writeup_content: `
+          <h3>The Challenge :</h3>
+          <p>On May 25th, 2024, I was driving on the highway on my way to Tetouan. Unfortunately, I was speeding, and the radar caught me.
+          Surprisingly, no violation has been registered under my name.<br><br>
+
+          I believe that if the police manage to see my license plate, they will issue the ticket.</p>
+          <a href="https://mega.nz/folder/TYEGnIDZ#4PSKP8z5PDHiGmIsKvoUXw" target="_blank" class="provided-files">Provided Files</a>
+          <h3>Solve :</h3>
+          <p>— The archive is protected with a password that must be cracked using John the Ripper.
+
+          <br><br>→ Extract the ZIP hash first: zip2john radar_infraction.zip > hash.txt
+
+          <br>→ Then run John with the rockyou wordlist:
+
+          <br><b>john — wordlist=/usr/share/wordlists/rockyou.txt hash.txt</b>
+
+          <br><br>John reveals the password: <strong>ecapitano</strong></p>
+          <p>— After extracting the ZIP, we take the file and load it into CyberChef to inspect its hex view.<br>
+          The file begins with what appears to be a PNG signature:
+
+          <br><b>89 50 4e 47 0d 0a 1a 0а</b>
+
+          <br><br>But something is off — the last byte (0а) uses a Cyrillic “а”, not a standard ASCII “a”.
+          <br>This is an example of homoglyph substitution, frequently used to break file signatures in forensics challenges.</p>
+          <center><img src="../assets/img/gcdxn7/gcdxn74.png"></center>
+          <center>It appears like a real “a” but its not!</center>
+          <br><p>To make the file valid again, replace the incorrect Cyrillic character with the correct ASCII byte.
+
+          <br><br>— After fixing the signature, the file becomes a valid PNG image.</p>
+          <center><img src="../assets/img/gcdxn7/gcdxn75.png"></center>
+          <p>Opening the PNG shows only a partial image, that’s why I said “I believe that if the police manage to see my license plate, they will issue the ticket.”
+
+          <br><br>To reveal everything, adjust the image height from 750px to 1350px.
+
+          <br>Once resized, the full content becomes visible but the file still damaged.
+
+          <br><br><b>After resizing the PNG, compute its CRC to finalize the image integrity and confirm that the structure is now correct.</b></p>
+          <center><img src="../assets/img/gcdxn7/gcdxn76.png"></center>
+          <center>Compute the new CRC-32</center>
+          <center><img src="../assets/img/gcdxn7/gcdxn77.png"></center>
+          <p>Then we got the full image wich is contains the flag in the license plate :</p>
+          <center><img src="../assets/img/gcdxn7/gcdxn78.png" style="height:500px;"></center>
+          <h3>Flag</h3>
+          <pre><code><b>GCDxN7{sor3a_ta9tol}</b></code></pre>
+        `
+      },
+      {
+        name:            "System Tay7",
+        category:        "Dfir",
+        difficulty:      "Hard",
+        description:     "Memory analysis based on a true story.",
+        writeup_content: `
+          <h3>The Challenge :</h3>
+          <p>kant 3ndi 99 dhs fdik lbanka, lbareh dkhlt l app lqit ghir flos njma 6 homa li bqaw, mli mshit l3ndhom nswl galo liya ra Sytem Tay7. Shkit f dak lkhdam dar shi haja wlkn howa ma3arfhash, so dumpit lmemory dyalo w jit bash n analyziha w nrjro flos nas.
+
+          <br><br><strong>Translated to english :</strong>
+
+          <br><br>I had 99 dirhams in my bank account, yesterday when I checked my bank app, I found only 30 dirhams, when I went to the bank to ask what hapened they said that the server is down. So probably the bankier made something wrog by mistake without knowing, I dumped his memory to analyze it and give the money back to people.</p>
+          <a href="https://mega.nz/file/uRkwkbDQ#DBnnNzLfvj7TEtg48cj_oxlZdW_gGku6z9DtvhxkrxA" target="_blank" class="provided-files">Provided Files</a>
+          <h3>Solve :</h3>
+          <a href="https://medium.com/@CR0M80/system-tay7-wrietup-dfir-challenge-132efcfa5416" target="_blank" class="provided-files">See the solve here (on my profile Medium)</a>
+          <h3>Flag</h3>
+          <pre><code><b>GCDxN7{System_kh4s_l1_yw49fo}</b></code></pre>
+        `
+      }
+    ]
+  }
+};
+
+/* ═══════════════════════════════════════════════════════════════════════
+   NAVIGATION
+═══════════════════════════════════════════════════════════════════════ */
+const DIFF_CLASS = { Easy: "diff-easy", Medium: "diff-med", Hard: "diff-hard" };
+
+function navigate(pageId, extraBreadcrumb = null) {
+  document.querySelectorAll('.pf-page').forEach(p => p.classList.remove('active'));
+  document.getElementById(pageId).classList.add('active');
+  patchSidebar(CTF_PAGES.has(pageId));
+
+  /* Cache le panel CTF si on quitte la page des challenges */
+  if (pageId !== 'page-ctf-detail' && pageId !== 'page-writeup') {
+    hideCTFInfoPanel();
+  }
+
+  updateBreadcrumb(pageId, extraBreadcrumb);
+  window.scrollTo({ top: document.getElementById('portfolio-app').offsetTop - 80, behavior: 'smooth' });
+}
+
+function loadCTF(ctfKey) {
+  const ctf = CTF_DATA[ctfKey];
+  document.getElementById('ctf-detail-title').innerHTML =
+    `<i class="fas fa-flag"></i> ${ctf.name} <span class="ctf-year">${ctf.year}</span>`;
+
+  const list = document.getElementById('ctf-challenges-list');
+  list.innerHTML = ctf.challenges.length === 0
+    ? `<p style="color:var(--text-muted-color,#6e7681)">No challenges yet.</p>`
+    : ctf.challenges.map((ch, idx) => `
+        <div class="challenge-card" onclick="loadWriteup('${ctfKey}', ${idx})">
+          <div class="challenge-header">
+            <span class="challenge-name">${ch.name}</span>
+            <div class="challenge-badges">
+              <span class="ctf-cat ${ch.category}">${ch.category.charAt(0).toUpperCase()+ch.category.slice(1)}</span>
+              <span class="diff-badge ${DIFF_CLASS[ch.difficulty] || 'diff-med'}">${ch.difficulty}</span>
+            </div>
+          </div>
+          <p class="challenge-desc">${ch.description}</p>
+          <span class="writeup-link">Read Writeup <i class="fas fa-arrow-right"></i></span>
+        </div>`).join('');
+
+  /* Affiche le panel CTF en haut, au-dessus des challenges */
+  showCTFInfoPanel(ctfKey);
+
+  navigate('page-ctf-detail', { ctfName: ctf.name });
+}
+
+function loadWriteup(ctfKey, idx) {
+  const ctf = CTF_DATA[ctfKey];
+  const ch  = ctf.challenges[idx];
+
+  /* Cache le panel quand on entre dans un writeup */
+  hideCTFInfoPanel();
+
+  document.getElementById('writeup-back-btn').onclick = () => {
+    /* Ré-affiche le panel au retour vers les challenges */
+    showCTFInfoPanel(ctfKey);
+    loadCTF(ctfKey);
+  };
+
+  document.getElementById('writeup-title').innerHTML =
+    `<i class="fas fa-file-alt"></i> ${ch.name}
+     <span class="ctf-cat ${ch.category}" style="font-size:.7rem;margin-left:.5rem">${ch.category}</span>
+     <span class="diff-badge ${DIFF_CLASS[ch.difficulty]||'diff-med'}" style="font-size:.7rem">${ch.difficulty}</span>`;
+
+  document.getElementById('writeup-body').innerHTML = ch.writeup_content;
+
+  navigate('page-writeup', { ctfName: ctf.name, challengeName: ch.name });
+}
+

@@ -1,0 +1,243 @@
+---
+layout: default
+title: My Portfolio
+icon: fas fa-briefcase
+order: 1
+---
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     BREADCRUMB BAR
+═══════════════════════════════════════════════════════════════════════════════ -->
+<div id="breadcrumb-bar">
+  <span class="breadcrumb-item" data-page="page-home">Home</span>
+  <span class="breadcrumb-sep"><i class="fas fa-chevron-right"></i></span>
+  <span class="breadcrumb-item" id="breadcrumb-level2">My Portfolio</span>
+  <span class="breadcrumb-sep" id="breadcrumb-sep2" style="display:none;"><i class="fas fa-chevron-right"></i></span>
+  <span class="breadcrumb-item" id="breadcrumb-level3" style="display:none;"></span>
+  <span class="breadcrumb-sep" id="breadcrumb-sep3" style="display:none;"><i class="fas fa-chevron-right"></i></span>
+  <span class="breadcrumb-item" id="breadcrumb-level4" style="display:none;"></span>
+</div>
+
+<div id="portfolio-app">
+
+<!-- PAGE 0 — MAIN MENU -->
+<div class="pf-page active" id="page-home">
+  <div class="pf-grid">
+
+    <button class="pf-card" onclick="navigate('page-skills')">
+      <span class="pf-card-icon"><i class="fas fa-code"></i></span>
+      <span class="pf-card-label">Skills</span>
+      <span class="pf-card-arrow"><i class="fas fa-arrow-right"></i></span>
+    </button>
+
+    <button class="pf-card" onclick="navigate('page-projects')">
+      <span class="pf-card-icon"><i class="fas fa-folder-open"></i></span>
+      <span class="pf-card-label">Projects</span>
+      <span class="pf-card-arrow"><i class="fas fa-arrow-right"></i></span>
+    </button>
+
+    <button class="pf-card" onclick="navigate('page-certificates')">
+      <span class="pf-card-icon"><i class="fas fa-certificate"></i></span>
+      <span class="pf-card-label">Certificates</span>
+      <span class="pf-card-arrow"><i class="fas fa-arrow-right"></i></span>
+    </button>
+
+    <button class="pf-card" onclick="navigate('page-ctfs')">
+      <span class="pf-card-icon"><i class="fas fa-flag"></i></span>
+      <span class="pf-card-label">CTFs by Me</span>
+      <span class="pf-card-arrow"><i class="fas fa-arrow-right"></i></span>
+    </button>
+
+    <button class="pf-card" onclick="navigate('page-experience')">
+      <span class="pf-card-icon"><i class="fas fa-timeline"></i></span>
+      <span class="pf-card-label">Experience</span>
+      <span class="pf-card-arrow"><i class="fas fa-arrow-right"></i></span>
+    </button>
+
+  </div>
+</div>
+
+<!-- PAGE 1 — SKILLS -->
+<div class="pf-page" id="page-skills">
+  <div class="pf-header">
+    <button class="pf-back" onclick="navigate('page-home')"><i class="fas fa-chevron-left"></i> Back</button>
+    <h2><i class="fas fa-code"></i> Skills</h2>
+  </div>
+  <div class="pf-content">
+
+<!--════════════════════════════════ Skills Group Template ═════════════════════════════════════-->
+    <div class="skill-group">
+      <h4>Languages</h4>
+      <div class="skill-tags">
+        <span class="tag">Python</span>
+        <span class="tag">HTML</span>
+        <span class="tag">MySQL</span>
+        <span class="tag">PL/SQL</span>
+        <span class="tag">C</span>
+      </div>
+    </div>
+<!--═════════════════════════════════════════════════════════════════════════════════════════════-->
+
+    <div class="skill-group">
+      <h4>Security</h4>
+      <div class="skill-tags">
+        <span class="tag">Forensics</span>
+        <span class="tag">Networking</span>
+        <span class="tag">Network Security</span>
+        <span class="tag">Cryptography</span>
+      </div>
+    </div>
+
+    <div class="skill-group">
+      <h4>Tools & Technologies</h4>
+      <div class="skill-tags">
+        <span class="tag">Linux</span>
+        <span class="tag">Binwalk</span>
+        <span class="tag">RegistryExplorer</span>
+        <span class="tag">Wireshark</span>
+        <span class="tag">Autopsy</span>
+        <span class="tag">FTKImager</span>
+        <span class="tag">Volatility</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- PAGE 2 — PROJECTS -->
+<div class="pf-page" id="page-projects">
+  <div class="pf-header">
+    <button class="pf-back" onclick="navigate('page-home')"><i class="fas fa-chevron-left"></i> Back</button>
+    <h2><i class="fas fa-folder-open"></i> Projects</h2>
+  </div>
+  <div class="pf-content">
+
+<!--════════════════════════════════ Project Template ═════════════════════════════════════-->
+    <div class="project-card">
+      <div class="project-header">
+        <span class="project-name">PenAut - Pentest Automation</span>
+        <a href="https://github.com/CR0M80/PenAut.git" target="_blank" class="project-link">
+          <i class="fab fa-github"></i> GitHub
+        </a>
+      </div>
+      <p class="project-desc">A lightweight Linux-based penetration testing automation tool designed to simplify reconnaissance and security analysis tasks. It provides an interactive command-line interface to perform network scanning, vulnerability research, hash cracking, and security intelligence gathering.</p>
+    </div>
+<!--═════════════════════════════════════════════════════════════════════════════════════════-->
+
+    <div class="project-card">
+      <div class="project-header">
+        <span class="project-name">CipherPWD</span>
+        <a href="https://github.com/CR0M80/CipherPWD.git" target="_blank" class="project-link">
+          <i class="fab fa-github"></i> GitHub
+        </a>
+      </div>
+      <p class="project-desc">A simple command-line tool to securely store and manage encrypted passwords locally. Offline, open-source, cross-platform (Windows & Linux). See README.md for usage and setup.</p>
+    </div>
+
+  </div>
+</div>
+
+<!-- PAGE 3 — CERTIFICATES -->
+<div class="pf-page" id="page-certificates">
+  <div class="pf-header">
+    <button class="pf-back" onclick="navigate('page-home')"><i class="fas fa-chevron-left"></i> Back</button>
+    <h2><i class="fas fa-certificate"></i> Certificates</h2>
+  </div>
+  <div class="pf-content">
+
+<!-- ════════════════════════════════ Certificate Template ═════════════════════════════════════-->
+    <div class="cert-card">
+      <div class="cert-badge"><i class="fas fa-award"></i></div>
+      <div class="cert-info">
+        <span class="cert-name">CCFA (Certified Computer Forensics Analyst)</span>
+        <span class="cert-issuer">Issued by — eSecurity Institute</span>
+        <span class="cert-issuer">Certificate ID : dbjr05clyn</span>
+        <span class="cert-date">07-01-2024</span>
+      </div>
+      <a href="https://app.esecurityinstitute.com/certificates/dbjr05clyn" target="_blank" class="cert-verify">
+        Verify <i class="fas fa-external-link-alt"></i>
+      </a>
+    </div>
+<!-- ════════════════════════════════════════════════════════════════════════════════════════════-->
+
+    <div class="cert-card">
+      <div class="cert-badge"><i class="fas fa-award"></i></div>
+      <div class="cert-info">
+        <span class="cert-name">Network Security Fundamentals</span>
+        <span class="cert-issuer">Issued by — Palo Alto</span>
+        <span class="cert-date">05-11-2025</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- PAGE 4 — CTF LIST -->
+<div class="pf-page" id="page-ctfs">
+  <div class="pf-header">
+    <button class="pf-back" onclick="navigate('page-home')"><i class="fas fa-chevron-left"></i> Back</button>
+    <h2><i class="fas fa-flag"></i> CTFs by Me</h2>
+  </div>
+  <div class="pf-content">
+
+    <button class="ctf-event-card" onclick="loadCTF('ctf1')">
+      <div class="ctf-event-left">
+        <span class="ctf-event-icon"><i class="fas fa-flag"></i></span>
+        <div>
+          <span class="ctf-event-name">GCDxJIT CTF</span>
+          <span class="ctf-event-meta">07-08/02/2026 · 5 challenges</span>
+        </div>
+      </div>
+      <i class="fas fa-chevron-right ctf-event-arrow"></i>
+    </button>
+
+    <button class="ctf-event-card" onclick="loadCTF('ctf2')">
+      <div class="ctf-event-left">
+        <span class="ctf-event-icon"><i class="fas fa-flag"></i></span>
+        <div>
+          <span class="ctf-event-name">GCDxN7 CTF</span>
+          <span class="ctf-event-meta">13-14/12/2025 · 3 challenges</span>
+        </div>
+      </div>
+      <i class="fas fa-chevron-right ctf-event-arrow"></i>
+    </button>
+
+  </div>
+</div>
+
+<!-- PAGE 5 — CTF CHALLENGES -->
+<div class="pf-page" id="page-ctf-detail">
+  <div class="pf-header">
+    <button class="pf-back" onclick="navigate('page-ctfs')"><i class="fas fa-chevron-left"></i> Back</button>
+    <h2 id="ctf-detail-title"><i class="fas fa-flag"></i> Challenges</h2>
+  </div>
+  <div id="ctf-inline-info" style="display:none;"></div>
+  <div class="pf-content" id="ctf-challenges-list"></div>
+</div>
+
+<!-- PAGE 6 — WRITEUP DETAIL -->
+<div class="pf-page" id="page-writeup">
+  <div class="pf-header">
+    <button class="pf-back" id="writeup-back-btn"><i class="fas fa-chevron-left"></i> Back</button>
+    <h2 id="writeup-title"><i class="fas fa-file-alt"></i> Writeup</h2>
+  </div>
+  <div class="writeup-body" id="writeup-body"></div>
+</div>
+
+<!-- PAGE 7 — EXPERIENCE -->
+<div class="pf-page" id="page-experience">
+  <div class="pf-header">
+    <button class="pf-back" onclick="navigate('page-home')"><i class="fas fa-chevron-left"></i> Back</button>
+    <h2><i class="fas fa-timeline"></i> Experience</h2>
+  </div>
+  <div class="timeline-container">
+    <!-- tout ton contenu experience ici... -->
+  </div>
+</div>
+
+</div><!-- fin portfolio-app -->
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     JS PORTFOLIO
+═══════════════════════════════════════════════════════════════════════ -->
+<script src="{{ '/assets/js/portfolio.js' | relative_url }}"></script>
