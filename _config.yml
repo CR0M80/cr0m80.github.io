@@ -16,7 +16,7 @@ timezone:
 
 title: AMAR SAAD # the main title
 
-tagline: CyberSecurity Engineering Student | DFIR Player | CTF Author# it will display as the subtitle
+tagline: CyberSecurity Engineering Student | DFIR Player | CTF Author # it will display as the subtitle
 
 description: >- # used by seo meta and the atom feed
   A minimal, responsive and feature-rich Jekyll theme for technical writing.
