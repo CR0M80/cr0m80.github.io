@@ -176,7 +176,7 @@ const CTF_DATA = {
         name:            "important is hidden",
         category:        "Dfir",
         difficulty:      "Easy",
-        description:     "Steganography Challenge",
+        description:     "Basic Steganography Challenge",
         writeup_content: `
           <h3>The Challenge :</h3>
           <p>Maybe something important hidden !!</p>
@@ -204,7 +204,7 @@ const CTF_DATA = {
         name:            "Tsjil Dokhol",
         category:        "Dfir",
         difficulty:      "Easy",
-        description:     "Steganography Challenge",
+        description:     "Basic analysis of a pcap file",
         writeup_content: `
           <h3>The Challenge :</h3>
           <p>Crombo nsa 3la lmot de passe dyl lcompte dyalo f la plateforme dyal ljami3a dyalo, ashno dar fnadarek ? bash n3rfo ghadi n analyziw pcap dyl server dyal ljami3a.</p>
@@ -256,7 +256,7 @@ const CTF_DATA = {
         name:            "Ta3bi2a mhkoka",
         category:        "Dfir",
         difficulty:      "Medium",
-        description:     "Steganography Challenge",
+        description:     "What does the EOF mean ?",
         writeup_content: `
           <h3>The Challenge :</h3>
           <p>Li dkhelha lwl bsehto.</p>
@@ -285,7 +285,7 @@ const CTF_DATA = {
         name:            "Ta3arof",
         category:        "Dfir",
         difficulty:      "Medium",
-        description:     "Steganography Challenge",
+        description:     "Typical challenge of a pcap.",
         writeup_content: `
           <h3>The Challenge :</h3>
           <p>mskin kan 3ziz 3lih ytsrkel f tinder, wlkn li 3ta lah 3tah !!<br>
