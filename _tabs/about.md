@@ -19,36 +19,18 @@ I am deeply passionate about cybersecurity, with a strong focus on analyzing sys
 {: .prompt-danger}
 
 ---
-## Areas of Interest
-
-- Cybersecurity & Security Engineering  
-- Digital investigation and artifact analysis **(DFIR)**
-- Capture The Flag (CTF) competitions  
-- System and network behavior analysis  
-
-I’m particularly driven by the analytical side of security — understanding what happened, how it happened, and why.
-
----
 
 ## CTF Player
 
-I actively participate in Capture The Flag competitions with my team **[ST4F1T](https://st4f1t.ma/)**, mainly focusing on forensics challenges.
+I actively participate in CTF competitions as a player with my team **[ST4F1T](https://st4f1t.ma/)**, mainly in the Forensics category, where I analyze digital evidence, investigate artifacts, and reconstruct attack scenarios.
 
-My approach involves:
-- Examining digital artifacts  
-- Analyzing network captures and system data  
-- Reconstructing attack scenarios step by step  
-
+> Get to know more about my team **[from here](https://st4f1t.ma/)**.
+{: .prompt-notice}
 ---
 
 ## CTF Creator
 
-Beyond playing, I also design and create CTF challenges.
-
-I specialize in building realistic and technical scenarios that:
-- Simulate real-world situations  
-- Encourage critical thinking  
-- Help others learn through hands-on investigation  
+I am also a CTF autor, designing forensic challenges to help others learn through realistic and technical scenarios.
 
 > You can explore the CTFs and challenges I created directly on this blog under the **"My Portfolio > CTFs By Me"** category.
 {: .prompt-warning}
