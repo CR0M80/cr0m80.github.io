@@ -14,6 +14,10 @@ SAAD AMAR, currently a 4th year Cyber Defense Engineering student at the Nationa
 
 I am deeply passionate about cybersecurity, with a strong focus on analyzing systems, understanding attack mechanisms, and extracting meaningful insights from digital traces.
 
+**My nickname, CR0M80, is inspired by the famous detective "Crombo", known for his intelligence, attention to detail, and ability to solve complex cases.**
+
+And as I often say when someone doesn’t follow instructions properly: **“Rask mrbe3 asat”**
+
 ---
 > For more details about my work, projects, certificates and activities, please explore the different categories of this blog.
 {: .prompt-danger}
