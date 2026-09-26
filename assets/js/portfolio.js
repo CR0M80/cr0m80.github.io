@@ -411,7 +411,28 @@ const CTF_DATA = {
         `
       }
     ]
-  }
+  },
+// ═══════════════════════════════════════════════════════════════════════
+
+
+   ctf3: {
+    name:        "ST4F1T CTF",
+    year:        "07-08/03/2026",
+    flag_format: "ST4F1T{...}",
+    author:      "By My Team ST4F1T",
+    description: "! Secret Challenges !",
+    challenges: []},
+// ═══════════════════════════════════════════════════════════════════════
+
+
+   ctf4: {
+    name:        "AiSec CTF",
+    year:        "16-17/05/2026",
+    flag_format: "AISEC{...}",
+    author:      "During The AiSec Event !!",
+    description: "! Secret Challenges !",
+    challenges: []}
+
 };
 
 /* ═══════════════════════════════════════════════════════════════════════
