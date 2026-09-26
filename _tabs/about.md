@@ -10,7 +10,7 @@ order: 1
 
 ## Who am I briefly ?
 
-SAAD AMAR, currently a 4th year Cyber Defense Engineering student at the National School of Applied Sciences of Marrakech, part of Cadi Ayyad University.
+SAAD AMAR, currently a 5th year Cyber Defense Engineering student at the National School of Applied Sciences of Marrakech, part of Cadi Ayyad University.
 
 I am deeply passionate about cybersecurity, with a strong focus on analyzing systems, understanding attack mechanisms, and extracting meaningful insights from digital traces.
 
