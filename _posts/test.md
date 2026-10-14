@@ -1,0 +1,54 @@
+---
+title: "Marrakech Airshow 2026"
+date: 2026-10-14 10:00:00 +0100
+categories: [Events By CR0M80]
+tags: [Aerospace, Cybersecurity, Networking]
+description: Attending Marrakech Airshow 2026 and exploring the intersection of aerospace innovation and cybersecurity.
+image: /assets/img/posts/airshow2026/img1.jpeg
+---
+
+## 📌 Overview
+
+On **October 7–8, 2026**, I had the opportunity to attend **Marrakech Airshow 2026**, one of the major events bringing together key players from the aerospace, aviation, and defense industries.
+
+This experience offered a valuable opportunity to discover the latest technological developments, explore the aerospace ecosystem, and connect with professionals shaping the future of the industry.
+
+## ✈️ Exploring the Aerospace Industry
+
+During the event, I had the opportunity to discover an industry driven by technological innovation, engineering excellence, and continuous transformation.
+
+The presence of major industry players highlighted the strategic importance of aerospace in Morocco and internationally, as well as the growing role of advanced technologies in modern aviation.
+
+## 🔐 Aerospace Meets Cybersecurity
+
+As a **Cyber-Defense Engineering student at ENSA Marrakech**, this experience was particularly meaningful to me.
+
+Modern aerospace systems increasingly rely on interconnected technologies, embedded systems, digital communications, and complex IT infrastructures. Protecting these systems against cyber threats is essential to ensuring operational safety, resilience, and reliability.
+
+This experience further strengthened my interest in the intersection of **cybersecurity, critical infrastructure protection, and embedded systems**.
+
+## 🤝 Networking & Professional Development
+
+Beyond discovering new technologies, attending Marrakech Airshow was an opportunity to exchange with industry professionals, gain insights into the sector's challenges, and explore potential career paths.
+
+These interactions helped broaden my perspective on the opportunities for cybersecurity engineers within strategic industries such as aerospace and defense.
+
+## 🚀 Key Takeaways
+
+This experience allowed me to:
+
+- ✈️ Discover the aerospace and defense ecosystem.
+- 🔐 Better understand the importance of cybersecurity in critical industries.
+- 🤝 Connect with professionals and explore career opportunities.
+- 🌍 Broaden my technical and professional perspective.
+
+## 🙏 A Valuable Experience
+
+I am grateful for the opportunity to attend **Marrakech Airshow 2026** and discover an industry where innovation, safety, and technological excellence are essential.
+
+This experience reinforces my ambition to contribute to a more secure digital future, particularly in environments where cybersecurity plays a critical role in protecting complex and interconnected systems.
+
+---
+
+<img src="/assets/img/posts/airshow2026/img1.jpeg" alt="Marrakech Airshow 2026" width="45%" height="auto">
+<img src="/assets/img/posts/airshow2026/img2.jpeg" alt="Marrakech Airshow 2026" width="45%" height="auto">
