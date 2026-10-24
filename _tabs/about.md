@@ -51,7 +51,7 @@ My work includes:
 ---
 
 ## Contact
-- *Email : s.amar.sec@outlook.com*  
+- *Email : saadamar.contact@gmail.com*  
 - *[GitHub](https://github.com/CR0M80)*  
 - *[LinkedIn](https://www.linkedin.com/in/amar-saad)*  
 - *[Medium](https://medium.com/@CR0M80)* 
